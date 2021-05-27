@@ -1,3 +1,5 @@
 *.pyc
 modules/__pycache__/
 modules/dataModels/__pycache__/
+json/marketData/
+__AtomicHubBot_prototype_.py
