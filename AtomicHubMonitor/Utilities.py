@@ -1,6 +1,7 @@
 import sys
 import json
 import os
+import logging
 
 class Utilities(): 
 
@@ -25,6 +26,7 @@ class Utilities():
             return data_struct
 
         except Exception: 
+            logging.error("Utilities::load_json_file -> ERROR: Unable to load and read Json File")
             return None
 
     @staticmethod 
@@ -32,4 +34,10 @@ class Utilities():
         """Encapsulates json library loads method"""
 
         return json.loads(response_text);
+
+    @staticmethod
+    def add_eight_percision_digits(input_value : int): 
+        """ """
+        
+        return input_value * 100000000
 

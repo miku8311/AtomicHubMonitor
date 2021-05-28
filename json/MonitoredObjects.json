@@ -1,0 +1,20 @@
+{"monitored_objects": {
+                        "waxon" : {"asset_id" : "", 
+                                    "template_id" : "116792",     
+                                    "owner": "", 
+                                    "symbol": "", 
+                                    "seller": "", 
+                                    "collection_name": "", 
+                                    "schema_name": ""
+                                    },
+                        "Enefterium" : {"asset_id" : "", 
+                                        "template_id" : "102241",     
+                                        "owner": "", 
+                                        "symbol": "", 
+                                        "seller": "", 
+                                        "collection_name": "", 
+                                        "schema_name": ""
+                                        }
+            }
+
+}

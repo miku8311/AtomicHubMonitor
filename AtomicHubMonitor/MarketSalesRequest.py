@@ -9,7 +9,7 @@ class MarketSalesRequest():
     sales_server = "/v1/sales"
 
     # parameters 
-    sales_parameters = {'state': '',
+    sales_parameters = {'state': '1',
                         'max_assets': '',
                         'min_assets': '',
                         'show_seller_contracts' : '',
@@ -22,11 +22,12 @@ class MarketSalesRequest():
                         'symbol': '',
                         'seller': '',
                         'buyer': '',
+                        
                         'min_price': '',
                         'max_price': '',
+
                         'min_template_mint': '',
                         'max_template_mint': '',
-
                         'owner': '',
                         'burned': '',
                         'collection_name': '',
@@ -56,7 +57,7 @@ class MarketSalesRequest():
         logging.debug("MarketSalesRequest::__init__-> Initializing with NO input parameters") 
 
 
-    def __init__(self, request_parameters): 
+    def __init__(self, request_parameters : dict): 
 
         for key in request_parameters: 
             if key in self.sales_parameters:
@@ -66,18 +67,18 @@ class MarketSalesRequest():
 
 
     # Methods
-    def add_parameter(self, parameter_key, value):
+    def add_parameter(self, parameter_key : str, value):
         """Adds parameter to sales_parameters dictionary"""
 
-        self.sales_parameters[str(parameter_key)] = value
-        logging.debug("MarketSalesRequest::add_parameter-> key: %s value: %s" % (str(parameter_key), str(value))) 
+        self.sales_parameters[parameter_key] = value
+        logging.debug("MarketSalesRequest::add_parameter-> key: %s value: %s" % (parameter_key, str(value))) 
 
 
-    def remove_parameter(self, parameter_key): 
-        """Removes parameter from sales_parameters dictionary"""
+    def remove_parameter(self, parameter_key : str): 
+        """Removes parameter from sales_parameters dictionary. Sets key to empty string"""
 
-        self.sales_parameters.pop(str(parameter_key))
-        logging.debug("MarketSalesRequest::remove_parameter-> key: %s value: %s" % (str(parameter_key), str(self.sales_parameters[parameter_key]))) 
+        self.sales_parameters[parameter_key] = ''
+        logging.debug("MarketSalesRequest::remove_parameter-> key: %s value: %s" % (parameter_key, str(self.sales_parameters[parameter_key]))) 
 
     def clear_parameters(self): 
         "Clears sales_parameters dictionary"
@@ -85,7 +86,7 @@ class MarketSalesRequest():
         self.sales_parameters.clear()
         logging.debug("MarketSalesRequest::clear_parameters-> Removing all parameters from dictionary") 
 
-    def update_parameters(self, input_parameters): 
+    def update_parameters(self, input_parameters : dict): 
         """Takes input dictionary and updates sales_parameters. 
         Will not add new keys to sales_parameters dictionary. Only update existing keys"""
 
@@ -123,7 +124,7 @@ class MarketSalesRequest():
         
         return response
 
-    def set_state(self, state): 
+    def set_state(self, state : int): 
         """Add or update sale state parameter"""
 
         if state < 1 or state > 3: 

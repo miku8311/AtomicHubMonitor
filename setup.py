@@ -4,16 +4,16 @@ except ImportError:
     from distutils.core import setup
 
 config = {
+    'name' : 'Atomic Hub Bot',
     'description' : 'AtomicHub Bot',
     'author' : 'Zachary Thomas',
-    'url' : 'URL to get it at.',
     'download_url' : 'Where to download it.',
-    'author_email' : 'My Email',
+    'author_email' : 'zackthomas13@gmail.com',
+    'url' : 'https://github.com/zackthomas1',
     'version' : '0.1',
-    'install_requires' : ['nose'],
-    'packages' : ['NAME'],
-    'scripts' : [],
-    'name' : 'prjectname'
+    'install_requires' : ['logging', 'datetime', 'os', 'time'],
+    'packages' : ['AtomicHubMonitor'],
+    'scripts' : ['Main'],
 }
 
-set(**config)
+setup(**config)

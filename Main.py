@@ -1,59 +1,56 @@
 #! python 3 
+
 import logging
 from datetime import datetime
 import os
+import time
 
-# modules 
-from modules.Utilities import Utilities
-from modules.MarketSalesRequest import MarketSalesRequest
-from modules.MarketMonitor import MarketMonitor
+# package modules
+from AtomicHubMonitor.Utilities import Utilities
+from AtomicHubMonitor.MarketSalesRequest import MarketSalesRequest
+from AtomicHubMonitor.MarketMonitor import MarketMonitor
+from AtomicHubMonitor.MonitoredObject import MonitoredObject
+from AtomicHubMonitor.Alerts import Alerts
 
 #Sets up logging
-logging.basicConfig(level=logging.DEBUG, format='\t%(asctime)s.%(msecs)03d: %(message)s', datefmt='%H:%M:%S')
+logging.basicConfig(level=logging.DEBUG, format='\t%(levelname)s:%(asctime)s.%(msecs)03d: %(message)s', datefmt='%H:%M:%S')
 #logging.disable(logging.ERROR) # uncomment to block debug logging.debug messages
 logging.disable(logging.DEBUG) # uncomment to block debug logging.debug messages
-#logging.disable(logging.INFO) # uncomment to block debug logging.info messages and below
+logging.disable(logging.INFO) # uncomment to block debug logging.info messages and below
 
-request_parameters = {'state': '1',
-                    'asset_id': '',
-                    'symbol': '',
-                    'seller': '',
-                    'min_price': '',
-                    'max_price': '',
-                    'collection_name': 'hallowscards',
-                    'schema_name': '',
-                    'template_id': '',
-                    'ids' : '',
-                    }
+waxon = MonitoredObject({'asset_id' : '', 
+                        'template_id' : '116792',     
+                        'owner': '', 
+                        'symbol': '', 
+                        'seller': '', 
+                        'collection_name': '', 
+                        'schema_name': '',
+                        }, 
+                        min_price= 8000 * 100000000, 
+                        )
+
+monitored_objects = [waxon]
 
 if __name__ == "__main__":
 
-    # Build API
-    marketRequest = MarketSalesRequest(request_parameters)
-    # print(marketRequest.stringify_parameters())
-    # print()
+    alerts = Alerts()
 
-    # Make API Request
-    marketRequest.build_url()
-    # print(marketRequest.url)
-    # print()
+    monitor = MarketMonitor(monitored_objects)
+    monitor.set_request_interval(5.0)
 
-    # load json file 
-    response = marketRequest.make_request()
-    marketData = Utilities.loads_json(response.text)
+    # Main Loop
+    while True:
+        print(datetime.now())
+        print("---------------------")
+        results = monitor.monitor_loop(search_min_price=True, search_max_price=False)
 
-    # Save json to file
-    timeStamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    fileName = "marketServerURL_salesURL_" + timeStamp + ".json"
-    jsonFileSavePath =  os.path.join(os.getcwd(), "json//marketData")
+        for result in results['under_valued_objects']: 
+            print()
+            print("Name: %s" % result['asset']['template']['immutable_data']['name'])
+            print("Template id: %s" % result['asset']['template']['template_id'])
+            print("Asset id: %s" % result['asset']['asset_id'])
+            print("\tPrice: %s" % str(float(result['price']['amount'])/100000000))
 
-    Utilities.save_json_file(os.path.join(jsonFileSavePath, fileName), marketData)
-
-    print()
-    for dataIndex in range(0, len(marketData['data'])):
-        print("Name: %s" % marketData['data'][dataIndex]['assets'][0]['template']['immutable_data']['name'])
-        print("assetID: " + marketData['data'][dataIndex]['assets'][0]['asset_id'])
-        print("templateID: " + marketData['data'][dataIndex]['assets'][0]['template']['template_id'])
-        print("\tPrice: %.2f WAX" % (float(marketData['data'][dataIndex]['price']['amount']) / 100000000) )
-        print("\tMint: %s of %s" % (marketData['data'][dataIndex]['assets'][0]['template_mint'], marketData['data'][dataIndex]['assets'][0]['template']['issued_supply']))
         print()
+        # pause before making next request to API
+        time.sleep(monitor.request_interval)
