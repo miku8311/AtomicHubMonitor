@@ -6,7 +6,9 @@ from AtomicHubMonitor.MarketSalesRequest import MarketSalesRequest
 from AtomicHubMonitor.MonitoredObject import MonitoredObject
 
 class MarketMonitor(): 
-    
+    """Provided a list of MonitorObject monitors the Atomic Hub market with given parameters 
+    and returns list of assets above and below provided thresholds."""
+
     request_interval = 100.0;
 
     monitored_objects = []    

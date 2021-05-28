@@ -2,6 +2,7 @@ import requests
 import logging
 
 class MarketSalesRequest():
+    """Makes request to Atomic Hub API"""
     # API Server URL
     market_server = "http://wax.api.atomicassets.io/atomicmarket"
 

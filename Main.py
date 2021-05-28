@@ -19,12 +19,12 @@ logging.disable(logging.DEBUG) # uncomment to block debug logging.debug messages
 logging.disable(logging.INFO) # uncomment to block debug logging.info messages and below
 
 waxon = MonitoredObject({'asset_id' : '', 
-                        'template_id' : '116792',     
+                        'template_id' : '',     
                         'owner': '', 
                         'symbol': '', 
                         'seller': '', 
                         'collection_name': '', 
-                        'schema_name': '',
+                        'schema_name': 'lands',
                         }, 
                         min_price= 8000 * 100000000, 
                         )
@@ -47,6 +47,8 @@ if __name__ == "__main__":
         for result in results['under_valued_objects']: 
             print()
             print("Name: %s" % result['asset']['template']['immutable_data']['name'])
+            print("Owner: %s" % result['asset']['owner'])
+            print("Schema: %s" % result['asset']['schema']['schema_name'])
             print("Template id: %s" % result['asset']['template']['template_id'])
             print("Asset id: %s" % result['asset']['asset_id'])
             print("\tPrice: %s" % str(float(result['price']['amount'])/100000000))

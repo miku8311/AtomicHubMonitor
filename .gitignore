@@ -1,5 +1,5 @@
 *.pyc
 package/__pycache__/
 test/__pycache__/
-json/marketData/
-logs/
+data/json/marketData/
+data/logs/

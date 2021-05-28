@@ -2,6 +2,8 @@ import math
 import logging
 
 class MonitoredObject(): 
+    """Contains data about an object on the Atomic Hub market that one would like to monitor.
+     Contains data to pass to API as query parameters"""
     
     attributes = { 'data' : {'asset_id' : '', 
                             'template_id' : '',     

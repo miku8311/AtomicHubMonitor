@@ -4,6 +4,7 @@ import os
 import logging
 
 class Utilities(): 
+    """contains standalone utility methods for common task"""
 
     def __init__(self):
         pass
@@ -40,4 +41,10 @@ class Utilities():
         """ """
         
         return input_value * 100000000
+
+    @staticmethod
+    def remove_eight_percision_digits(input_value : int): 
+        """ """
+        
+        return input_value / 100000000
 
