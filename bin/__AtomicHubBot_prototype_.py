@@ -6,9 +6,7 @@ import sys
 import os
 from datetime import datetime
 
-#!/usr/bin/python3.6
-
-#
+# Correct pathing to package
 PACKAGE_PARENT = '..'
 SCRIPT_DIR = os.path.dirname(os.path.realpath(os.path.join(os.getcwd(), os.path.expanduser(__file__))))
 

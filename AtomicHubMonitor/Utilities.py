@@ -37,13 +37,13 @@ class Utilities():
         return json.loads(response_text);
 
     @staticmethod
-    def add_eight_percision_digits(input_value : int): 
+    def add_eight_percision_digits(input_value): 
         """ """
         
         return input_value * 100000000
 
     @staticmethod
-    def remove_eight_percision_digits(input_value : int): 
+    def remove_eight_percision_digits(input_value ): 
         """ """
         
         return input_value / 100000000

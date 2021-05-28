@@ -85,10 +85,6 @@ class MarketMonitor():
             marketRequest = MarketSalesRequest(obj.attributes['data'])
             logging.debug("MarketMonitor::monitor_loop -> Request Parameters: %s" % marketRequest.sales_parameters)
 
-            # Build URL
-            marketRequest.build_url()
-            logging.debug("MarketMonitor::monitor_loop -> url: %s" % marketRequest.url)
-
             # Make request
             response = marketRequest.make_request()
             marketData = Utilities.loads_json(response.text)

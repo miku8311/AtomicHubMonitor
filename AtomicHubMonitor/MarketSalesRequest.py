@@ -3,6 +3,7 @@ import logging
 
 class MarketSalesRequest():
     """Makes request to Atomic Hub API"""
+    
     # API Server URL
     market_server = "http://wax.api.atomicassets.io/atomicmarket"
 
@@ -50,7 +51,6 @@ class MarketSalesRequest():
                         'sort': '',          
                         }
 
-
     url = ""
 
     # Constructors
@@ -66,14 +66,12 @@ class MarketSalesRequest():
 
         logging.debug("MarketSalesRequest::__init__-> Initializing with input parameters") 
 
-
     # Methods
     def add_parameter(self, parameter_key : str, value):
         """Adds parameter to sales_parameters dictionary"""
 
         self.sales_parameters[parameter_key] = value
         logging.debug("MarketSalesRequest::add_parameter-> key: %s value: %s" % (parameter_key, str(value))) 
-
 
     def remove_parameter(self, parameter_key : str): 
         """Removes parameter from sales_parameters dictionary. Sets key to empty string"""
@@ -113,12 +111,15 @@ class MarketSalesRequest():
         
         logging.debug("MarketSalesRequest::build_url-> url built: %s" % self.url) 
 
-
     def make_request(self): 
         """Request Json from AtomicHub API. 
         Returns 'Response' object""" 
 
         logging.debug("MarketSalesRequest::make_request-> Requesting Json from web API") 
+
+        # Build URL
+        self.build_url()
+        logging.debug("MarketMonitor::monitor_loop -> url: %s" % self.url)
 
         response = requests.get(self.url)
         response.raise_for_status()

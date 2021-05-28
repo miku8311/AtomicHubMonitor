@@ -5,7 +5,12 @@ from datetime import datetime
 import os
 import time
 
+# Correct pathing to package
+PACKAGE_PARENT = '..\\'
+SCRIPT_DIR = os.path.dirname(os.path.realpath(os.path.join(os.getcwd(), os.path.expanduser(__file__))))
+print (SCRIPT_DIR)
 # package modules
+from AtomicHubMonitor.Alerts import Alerts
 from AtomicHubMonitor.Utilities import Utilities
 from AtomicHubMonitor.MarketSalesRequest import MarketSalesRequest
 from AtomicHubMonitor.MarketMonitor import MarketMonitor
